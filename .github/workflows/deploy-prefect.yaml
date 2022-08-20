@@ -6,6 +6,7 @@ on:
 env:
   FLOWNAME: stoat
   IMAGE: zzstoatzz/flows:hello-ci-cd
+  DEPLOYMENTYAML: ./prefect/flows/stoat.yaml
 
 jobs:
   build:
@@ -45,7 +46,7 @@ jobs:
           API_URL: ${{ secrets.PREFECT_API_URL }}
 
       - name: Build Prefect deployment
-        run: prefect deployment build ./flows/flow.py:$FLOWNAME -n $DEPLOYMENT_NAME -t $TAG -ib $INFRA -sb $STORAGE
+        run: prefect deployment build ./prefect/flows/flow.py:$FLOWNAME -n $DEPLOYMENT_NAME -t $TAG -ib $INFRA -sb $STORAGE -o $DEPLOYMENTYAML
         env:
           DEPLOYMENT_NAME: hello-marvin
           TAG: dev
@@ -53,7 +54,7 @@ jobs:
           STORAGE: s3/flow-script-storage-${{ steps.extract_branch.outputs.branch }}
         
       - name: Apply Prefect deployment
-        run: prefect deployment apply $FLOWNAME-deployment.yaml
+        run: prefect deployment apply ./prefect/flows/$FLOWNAME-deployment.yaml
 
       - name: Summary
         run: echo Successfully created deployment and built image ${{ env.IMAGE }} >> $GITHUB_STEP_SUMMARY
