@@ -34,7 +34,7 @@ jobs:
         run: docker push ${{ env.IMAGE }}
 
       - name: Pip update and install prefect
-        run: pip install -U wheel pip prefect
+        run: pip install -U wheel pip prefect s3fs
 
       - name: Prefect Cloud login
         run: |
