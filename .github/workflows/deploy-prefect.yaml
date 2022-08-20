@@ -54,7 +54,7 @@ jobs:
           STORAGE: s3/flow-script-storage-${{ steps.extract_branch.outputs.branch }}
         
       - name: Apply Prefect deployment
-        run: prefect deployment apply ./prefect/flows/$FLOWNAME-deployment.yaml
+        run: prefect deployment apply $DEPLOYMENTYAML
 
       - name: Summary
         run: echo Successfully created deployment and built image ${{ env.IMAGE }} >> $GITHUB_STEP_SUMMARY
