@@ -57,6 +57,6 @@ jobs:
       - name: Apply Prefect deployment
         run: prefect deployment apply $DEPLOYMENTYAML
 
-      - name: Summary
+      - name: Summary of workflow
         run: echo Successfully created deployment and built image ${{ env.IMAGE }} >> $GITHUB_STEP_SUMMARY
       
