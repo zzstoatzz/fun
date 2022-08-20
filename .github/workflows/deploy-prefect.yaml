@@ -20,7 +20,7 @@ jobs:
 
       - name: Build the image
         run: |
-          docker build . --tag ${{ env.IMAGE }} -f ./prefect/flows/Dockerfile
+          docker build . --tag ${{ env.IMAGE }} -f ./prefect/Dockerfile
 
       - name: Login to registry
         env:
