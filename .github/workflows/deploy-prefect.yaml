@@ -46,7 +46,7 @@ jobs:
           API_URL: ${{ secrets.PREFECT_API_URL }}
 
       - name: Build Prefect deployment
-        run: prefect deployment build ./prefect/flows/hello.py:$FLOWNAME -n $DEPLOYMENT_NAME -t $TAG -sb $STORAGE -o $DEPLOYMENTYAML
+        run: prefect deployment build ./prefect/flows/hello.py:$FLOWNAME -n $DEPLOYMENT_NAME -t $TAG -o $DEPLOYMENTYAML
         env:
           DEPLOYMENT_NAME: hello-marvin
           TAG: dev
