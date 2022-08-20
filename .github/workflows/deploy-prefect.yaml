@@ -20,7 +20,7 @@ jobs:
 
       - name: Build the image
         run: |
-          docker build . --tag ${{ env.IMAGE }}
+          docker build . --tag ${{ env.IMAGE }} -f flows/Dockerfile
 
       - name: Login to registry
         env:
