@@ -1,0 +1,51 @@
+###
+### A complete description of a Prefect Deployment for flow 'stoat'
+###
+name: test
+description: null
+version: 43ad9e861d5c7083ea24a5e2543e503f
+# The work queue that will handle this deployment's runs
+work_queue_name: main
+tags:
+- dev
+parameters: {}
+schedule: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command:
+  - python
+  - -m
+  - prefect.engine
+  stream_output: true
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: stoat
+manifest_path: null
+storage:
+  bucket_path: n80n8flowstorage/dev
+  aws_access_key_id: '**********'
+  aws_secret_access_key: '**********'
+  _is_anonymous: true
+  _block_document_name: anonymous-3461ea9d-1cb7-4247-936a-c7a8c6f6cec1
+  _block_document_id: 7efa4bc7-2570-48cd-803f-4f9d7d901c9a
+  _block_type_slug: s3
+path: null
+entrypoint: prefect/flows/hello.py:stoat
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    numbers:
+      title: numbers
+      type: array
+      items:
+        type: integer
+  required:
+  - numbers
+  definitions: null
