@@ -52,8 +52,8 @@ jobs:
           INFRA: kubernetes-job/default-k8s-job
           STORAGE: s3/flow-script-storage
           WORK_QUEUE: "main"
-          API_KEY: ${{ secrets.PREFECT_API_KEY }}
-          API_URL: ${{ secrets.PREFECT_API_URL }}
+          PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
+          PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
 
       - name: Apply Prefect deployment
         run: prefect deployment apply $DEPLOYMENTYAML
