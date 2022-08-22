@@ -40,8 +40,9 @@ jobs:
       #   run: |
       #     prefect config set PREFECT_API_KEY=$API_KEY
       #     prefect config set PREFECT_API_URL=$API_URL
-
-
+      #   env:
+      #     API_KEY: ${{ secrets.PREFECT_API_KEY }}
+      #     API_URL: ${{ secrets.PREFECT_API_URL }}
 
       - name: Build Prefect deployment
         run: prefect deployment build ./prefect/flows/hello.py:$FLOWNAME -n $DEPLOYMENT_NAME -t $TAG -sb $STORAGE -o $DEPLOYMENTYAML -q $WORK_QUEUE
@@ -53,7 +54,7 @@ jobs:
           WORK_QUEUE: "main"
           API_KEY: ${{ secrets.PREFECT_API_KEY }}
           API_URL: ${{ secrets.PREFECT_API_URL }}
-
+          
       - name: Apply Prefect deployment
         run: prefect deployment apply $DEPLOYMENTYAML
 
