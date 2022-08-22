@@ -45,16 +45,16 @@ jobs:
       #     API_URL: ${{ secrets.PREFECT_API_URL }}
 
       - name: Build Prefect deployment
-        run: prefect deployment build ./prefect/flows/hello.py:$FLOWNAME -n $DEPLOYMENT_NAME -t $TAG -sb $STORAGE -o $DEPLOYMENTYAML -q $WORK_QUEUE
+        run: prefect deployment build ./prefect/flows/hello.py:$FLOWNAME -n $DEPLOYMENT_NAME -t $TAG -ib $INFRA -sb $STORAGE -o $DEPLOYMENTYAML -q $WORK_QUEUE
         env:
           DEPLOYMENT_NAME: hello-marvin
           TAG: dev
           INFRA: kubernetes-job/default-k8s-job
-          STORAGE: s3/flow-script-storage-${{ steps.extract_branch.outputs.branch }}
+          STORAGE: s3/flow-script-storage
           WORK_QUEUE: "main"
           API_KEY: ${{ secrets.PREFECT_API_KEY }}
           API_URL: ${{ secrets.PREFECT_API_URL }}
-          
+
       - name: Apply Prefect deployment
         run: prefect deployment apply $DEPLOYMENTYAML
 
