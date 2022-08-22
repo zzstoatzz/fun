@@ -36,13 +36,10 @@ jobs:
       - name: Pip update and install prefect
         run: pip install -U wheel pip prefect s3fs
 
-      # - name: Prefect Cloud login
-      #   run: |
-      #     prefect config set PREFECT_API_KEY=$API_KEY
-      #     prefect config set PREFECT_API_URL=$API_URL
-      #   env:
-      #     API_KEY: ${{ secrets.PREFECT_API_KEY }}
-      #     API_URL: ${{ secrets.PREFECT_API_URL }}
+      - name: Prefect Cloud login
+        run: |
+          prefect config set PREFECT_API_KEY=${{ secrets.PREFECT_API_KEY }}
+          prefect config set PREFECT_API_URL=${{ secrets.PREFECT_API_URL }}
 
       - name: Build Prefect deployment
         run: prefect deployment build ./prefect/flows/hello.py:$FLOWNAME -n $DEPLOYMENT_NAME -t $TAG -ib $INFRA -sb $STORAGE -o $DEPLOYMENTYAML -q $WORK_QUEUE
@@ -50,11 +47,9 @@ jobs:
           DEPLOYMENT_NAME: hello-marvin
           TAG: dev
           INFRA: kubernetes-job/default-k8s-job
-          STORAGE: s3/flow-script-storage
+          STORAGE: s3/flow-script-storage-${{ steps.extract_branch.outputs.branch }}
           WORK_QUEUE: "main"
-          PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
-          PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
-
+          
       - name: Apply Prefect deployment
         run: prefect deployment apply $DEPLOYMENTYAML
 
