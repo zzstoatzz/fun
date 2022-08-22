@@ -7,7 +7,9 @@ env:
   FLOWNAME: stoat
   IMAGE: zzstoatzz/flows:hello-ci-cd
   DEPLOYMENTYAML: ./prefect/flows/stoat.yaml
-
+  PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
+  PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,11 +37,6 @@ jobs:
 
       - name: Pip update and install prefect
         run: pip install -U wheel pip prefect s3fs
-
-      - name: Prefect Cloud login
-        run: |
-          prefect config set PREFECT_API_KEY=${{ secrets.PREFECT_API_KEY }}
-          prefect config set PREFECT_API_URL=${{ secrets.PREFECT_API_URL }}
 
       - name: Build Prefect deployment
         run: prefect deployment build ./prefect/flows/hello.py:$FLOWNAME -n $DEPLOYMENT_NAME -t $TAG -ib $INFRA -sb $STORAGE -o $DEPLOYMENTYAML -q $WORK_QUEUE
