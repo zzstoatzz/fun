@@ -9,9 +9,9 @@ def is_even(x: int) -> bool:
 
 
 @flow
-def stoat(numbers: List[int] = [1, 2, 3]):
+def stoat():
     logger = get_run_logger()
-
+    numbers = [i for i in range(10)]
     n_evens = sum(int(is_even(n)) for n in numbers)
 
     logger.info(f"There were {n_evens} in `numbers`")
